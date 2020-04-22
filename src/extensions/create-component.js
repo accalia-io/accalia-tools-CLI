@@ -12,7 +12,7 @@ module.exports = (toolbox) => {
   }
 
   async function createComponent(folder, name) {
-    let Name = name.charAt(0).toUpperCase() + name.slice(1);
+    const Name = name.charAt(0).toUpperCase() + name.slice(1);
 
     if (!Name) {
       error('Name must be specified');

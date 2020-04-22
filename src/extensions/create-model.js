@@ -2,7 +2,7 @@ module.exports = (toolbox) => {
   const { filesystem, template, print: { success, error } } = toolbox;
 
   async function createModel(folder, name) {
-    name = name.charAt(0).toUpperCase() + name.slice(1);
+    const Name = name.charAt(0).toUpperCase() + name.slice(1);
 
     if (!name) {
       error('Name must be specified');
@@ -11,11 +11,11 @@ module.exports = (toolbox) => {
 
     await template.generate({
       template: 'backend/model.js.ejs',
-      target: `${folder}/${name}.js`,
-      props: { name },
+      target: `${folder}/${Name}.js`,
+      props: { Name, name },
     })
 
-    success(`Generated ${folder}/${name}.`)
+    success(`Generated ${folder}/${Name}.`)
   }
 
   toolbox.createModel = createModel
