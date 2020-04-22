@@ -12,17 +12,17 @@ module.exports = (toolbox) => {
   }
 
   async function createComponent(folder, name) {
-    name = name.charAt(0).toUpperCase() + name.slice(1);
+    let Name = name.charAt(0).toUpperCase() + name.slice(1);
 
-    if (!name) {
+    if (!Name) {
       error('Name must be specified');
       return
     }
 
     await template.generate({
       template: 'frontend/component.js.ejs',
-      target: `${folder}/${name}/index.js`,
-      props: { name },
+      target: `${folder}/${Name}/index.js`,
+      props: { Name, name },
     })
 
     const styleTemplate = (await isReactNative())
@@ -31,10 +31,10 @@ module.exports = (toolbox) => {
 
     await template.generate({
       template: styleTemplate,
-      target: `${folder}/${name}/styles.js`,
+      target: `${folder}/${Name}/styles.js`,
     })
 
-    success(`Generated ${folder}/${name}.`)
+    success(`Generated ${folder}/${Name}.`)
   }
 
   toolbox.createComponent = createComponent

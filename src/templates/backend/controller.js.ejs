@@ -1,18 +1,28 @@
-import Sequelize, { Model } from 'sequelize';
+class <%= props.Name %>Controller {
+  async index(req, res) {
 
-class <%= props.name %> extends Model {
-  static init(sequelize) {
-    super.init(
-      {
-        name: Sequelize.STRING,
-      },
-      {
-        sequelize,
-      }
-    );
+    return res.json();
+  }
 
-    return this;
+  async store(req, res) {
+
+    return res.json();
+  }
+
+  async show(req, res) {
+
+    return res.json();
+  }
+
+  async update(req, res) {
+
+    return res.json();
+  }
+
+  async delete(req, res) {
+
+    return res.json();
   }
 }
 
-export default  <%= props.name %>;
+export default new <%= props.Name %>Controller();
