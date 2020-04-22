@@ -1,0 +1,58 @@
+import { Op } from 'sequelize';
+
+import <%= props.Name %> from '../models/<%= props.Name %>';
+
+class <%= props.Name %>Controller {
+  async index(req, res) {
+    const { page = 1, q } = req.query;
+
+    const query = q ? { name: { [Op.ilike]: q } } : null;
+
+    const <%= props.name %> = await <%= props.Name %>.findAll({
+      where: query,
+      offset: (page - 1) * 10,
+      limit: 10,
+    });
+
+    const counter = await <%= props.Name %>.findAndCountAll();
+    const { count } = counter;
+
+    return res.json({ <%= props.name %>, count });
+  }
+
+  async store(req, res) {
+    const isSaved = await <%= props.Name %>.findOne({ where: { code: req.body.code } });
+
+    if (isSaved) {
+      return res.status(409).json({ error: 'Duplicate Code' });
+    }
+
+    const <%= props.name %> = await <%= props.Name %>.create(req.body);
+
+    return res.json(<%= props.name %>);
+  }
+
+  async show(req, res) {
+    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
+
+    return res.json(<%= props.name %>);
+  }
+
+  async update(req, res) {
+    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
+
+    const new<%= props.Name %> = await <%= props.name %>.update(req.body);
+
+    return res.json(new<%= props.Name %>);
+  }
+
+  async delete(req, res) {
+    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
+
+    const new<%= props.Name %> = await <%= props.name %>.update(req.body);
+
+    return res.json(new<%= props.Name %>);
+  }
+}
+
+export default new <%= props.Name %>Controller();

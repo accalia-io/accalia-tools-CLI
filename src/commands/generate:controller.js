@@ -1,6 +1,6 @@
 module.exports = {
   name: 'generate:controller',
-  description: 'Create new model inside src/app/model',
+  description: 'Create new emity controller inside src/app/controllers',
   run: async toolbox => {
     const {
       parameters,
