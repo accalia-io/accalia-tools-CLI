@@ -1,8 +1,14 @@
 {
-  "name": "accalia-tools",
-  "version": "0.0.1",
+  "name": "@accalia.io/accalia-tools",
+  "author": {
+    "name": "ruanderson Vieira",
+    "email": "ruanderson@accalia.io",
+    "url": "https://ruandersonvieira.com/"
+  },
+  "organization":"accalia.io",
+  "version": "0.0.3",
   "description": "accalia-tools CLI",
-  "private": true,
+  "private": false,
   "bin": {
     "accalia-tools": "bin/accalia-tools"
   },

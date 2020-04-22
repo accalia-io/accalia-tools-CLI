@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var loadingPhrases = ['⛽ Refilling fuel...', '🔥 Warming engines...', '📡 Mapping meteors...'];
 module.exports = {
     name: 'init',
+    description: 'Generate project',
     run: function (toolbox) { return __awaiter(_this, void 0, void 0, function () {
         var print, parameters, system, filesystem, array, options, name, workDir, clone, modifiers;
         var _this = this;
@@ -58,7 +59,7 @@ module.exports = {
                                     spinner = print.spin(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
                                     install = function (pkg, hasGit) { return __awaiter(_this, void 0, void 0, function () {
                                         return __generator(this, function (_a) {
-                                            return [2 /*return*/, system.run((name ? "cd " + name + " && " : '') + "cd " + modifier + " && " + (pkg ? "yarn add " + pkg : 'yarn') + " " + (hasGit && '&& yarn rimraf .git'))];
+                                            return [2 /*return*/, system.run((name ? `cd ${name} && ` : '') + `cd ${name}${modifier} && ` + (pkg ? "yarn add " + pkg : 'yarn') + " " + (hasGit && '&& yarn rimraf .git'))];
                                         });
                                     }); };
                                     _b.label = 1;
@@ -66,27 +67,26 @@ module.exports = {
                                     _b.trys.push([1, 12, , 13]);
                                     _a = modifier;
                                     switch (_a) {
-                                        case 'server': return [3 /*break*/, 2];
+                                        case 'api': return [3 /*break*/, 2];
                                         case 'web': return [3 /*break*/, 5];
-                                        case 'mobile': return [3 /*break*/, 8];
+                                        case 'app': return [3 /*break*/, 8];
                                     }
                                     return [3 /*break*/, 10];
-                                case 2: return [4 /*yield*/, system.run("git clone https://github.com/Rocketseat/omni-cli-server-" + (template
-                                        || 'express') + " " + workDir + "/server")];
+                                case 2: return [4 /*yield*/, system.run(`git clone https://github.com/accalia-io/accalia-tools-template-API ${workDir}/${name}API`)];
                                 case 3:
                                     _b.sent();
                                     return [4 /*yield*/, install(null, true)];
                                 case 4:
                                     _b.sent();
                                     return [3 /*break*/, 11];
-                                case 5: return [4 /*yield*/, system.run("git clone https://github.com/Rocketseat/omni-cli-web " + workDir + "/web")];
+                                case 5: return [4 /*yield*/, system.run(`git clone https://github.com/accalia-io/accalia-tools-template-WEB ${workDir}/${name}WEB`)];
                                 case 6:
                                     _b.sent();
                                     return [4 /*yield*/, install(null, true)];
                                 case 7:
                                     _b.sent();
                                     return [3 /*break*/, 11];
-                                case 8: return [4 /*yield*/, system.run((name ? "cd " + name + " && " : '') + `npx react-native init mobile`)];
+                                case 8: return [4 /*yield*/, system.run((name ? `cd ${name} && ` : '') + `npx react-native init ${name}APP`)];
                                 case 9:
                                     _b.sent();
                                     return [3 /*break*/, 11];
@@ -104,12 +104,12 @@ module.exports = {
                     }); };
                     print.info('✨ Welcome aboard! Please take a seat while we prepare your launch.');
                     if (!(name !== '')) return [3 /*break*/, 2];
-                    return [4 /*yield*/, system.run("mkdir " + name)];
+                    return [4 /*yield*/, system.run(`mkdir ${name} && cd ${name}`)];
                 case 1:
                     _a.sent();
                     _a.label = 2;
                 case 2:
-                    modifiers = (options.only && options.only.split(',')) || ['server', 'web', 'mobile'];
+                    modifiers = (options.only && options.only.split(',')) || ['api', 'web', 'app'];
                     return [4 /*yield*/, Promise.all(modifiers.map(function (modifier) { return clone(modifier, options[modifier]); }))];
                 case 3:
                     _a.sent();
@@ -119,4 +119,3 @@ module.exports = {
         });
     }); },
 };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5pdC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb21tYW5kcy9pbml0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLGlCQStEQTs7QUE1REEsSUFBTSxjQUFjLEdBQUcsQ0FBQyxxQkFBcUIsRUFBRSx1QkFBdUIsRUFBRSx1QkFBdUIsQ0FBQyxDQUFDO0FBRWpHLE1BQU0sQ0FBQyxPQUFPLEdBQUc7SUFDZixJQUFJLEVBQUUsTUFBTTtJQUNaLEdBQUcsRUFBRSxVQUFPLE9BQXVCOzs7Ozs7b0JBRXBDLEtBQUssR0FDRixPQUFPLE1BREwsRUFBRSxVQUFVLEdBQ2QsT0FBTyxXQURPLEVBQUUsTUFBTSxHQUN0QixPQUFPLE9BRGUsRUFBRSxVQUFVLEdBQ2xDLE9BQU8sV0FEMkIsQ0FDMUI7b0JBRUEsS0FBSyxHQUFjLFVBQVUsTUFBeEIsRUFBRSxPQUFPLEdBQUssVUFBVSxRQUFmLENBQWdCO29CQUMvQixJQUFJLEdBQUksS0FBSyxHQUFULENBQVU7b0JBQ2YsT0FBTyxHQUFHLFVBQVUsQ0FBQyxJQUFJLENBQUMsSUFBSSxJQUFJLEVBQUUsQ0FBQyxDQUFDO29CQUV0QyxLQUFLLEdBQUcsVUFBTyxRQUFnQixFQUFFLFFBQWdCOzs7Ozs7b0NBQy9DLE9BQU8sR0FBUSxLQUFLLENBQUMsSUFBSSxDQUM3QixjQUFjLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsTUFBTSxFQUFFLEdBQUcsY0FBYyxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQ2xFLENBQUM7b0NBRUksT0FBTyxHQUFHLFVBQU8sR0FBa0IsRUFBRSxNQUFzQjs7NENBQUssc0JBQUEsTUFBTSxDQUFDLEdBQUcsQ0FDNUUsQ0FBRyxJQUFJLENBQUMsQ0FBQyxDQUFDLFFBQU0sSUFBSSxTQUFNLENBQUMsQ0FBQyxDQUFDLEVBQUUsWUFBTSxRQUFRLGFBQzNDLEdBQUcsQ0FBQyxDQUFDLENBQUMsY0FBWSxHQUFLLENBQUMsQ0FBQyxDQUFDLE1BQU0sV0FDOUIsTUFBTSxJQUFJLHFCQUFxQixDQUFFLENBQ3RDLEVBQUE7O3lDQUFBLENBQUM7Ozs7b0NBR00sS0FBQSxRQUFRLENBQUE7OzZDQUNULFFBQVEsQ0FBQyxDQUFULHdCQUFROzZDQU9SLEtBQUssQ0FBQyxDQUFOLHdCQUFLOzZDQUlMLFFBQVEsQ0FBQyxDQUFULHdCQUFROzs7d0NBVlgscUJBQU0sTUFBTSxDQUFDLEdBQUcsQ0FDZCw4REFBMkQsUUFBUTsyQ0FDOUQsU0FBUyxVQUFJLE9BQU8sWUFBUyxDQUNuQyxFQUFBOztvQ0FIRCxTQUdDLENBQUM7b0NBQ0YscUJBQU0sT0FBTyxDQUFDLElBQUksRUFBRSxJQUFJLENBQUMsRUFBQTs7b0NBQXpCLFNBQXlCLENBQUM7b0NBQzFCLHlCQUFNO3dDQUVOLHFCQUFNLE1BQU0sQ0FBQyxHQUFHLENBQUMsMERBQXdELE9BQU8sU0FBTSxDQUFDLEVBQUE7O29DQUF2RixTQUF1RixDQUFDO29DQUN4RixxQkFBTSxPQUFPLENBQUMsSUFBSSxFQUFFLElBQUksQ0FBQyxFQUFBOztvQ0FBekIsU0FBeUIsQ0FBQztvQ0FDMUIseUJBQU07d0NBRU4scUJBQU0sTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFHLElBQUksQ0FBQyxDQUFDLENBQUMsUUFBTSxJQUFJLFNBQU0sQ0FBQyxDQUFDLENBQUMsRUFBRSxrQ0FBOEIsQ0FBQyxFQUFBOztvQ0FBL0UsU0FBK0UsQ0FBQztvQ0FDaEYseUJBQU07O29DQUVOLE1BQU0sQ0FBQyxHQUFHLENBQUMsbUJBQW1CLENBQUMsQ0FBQzs7eUNBRXBDLHNCQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUksUUFBUSxDQUFDLFdBQVcsRUFBRSxnQkFBYSxDQUFDLEVBQUM7OztvQ0FFL0QsT0FBTyxDQUFDLElBQUksQ0FBSSxRQUFRLENBQUMsV0FBVyxFQUFFLGFBQVUsQ0FBQyxDQUFDOzs7Ozt5QkFFckQsQ0FBQztvQkFFRixLQUFLLENBQUMsSUFBSSxDQUFDLG9FQUFvRSxDQUFDLENBQUM7eUJBRTdFLENBQUEsSUFBSSxLQUFLLEVBQUUsQ0FBQSxFQUFYLHdCQUFXO29CQUFFLHFCQUFNLE1BQU0sQ0FBQyxHQUFHLENBQUMsV0FBUyxJQUFNLENBQUMsRUFBQTs7b0JBQWpDLFNBQWlDLENBQUM7OztvQkFFN0MsU0FBUyxHQUFHLENBQUMsT0FBTyxDQUFDLElBQUksSUFBSSxPQUFPLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLEtBQUssRUFBRSxRQUFRLENBQUMsQ0FBQztvQkFFM0YscUJBQU0sT0FBTyxDQUFDLEdBQUcsQ0FBQyxTQUFTLENBQUMsR0FBRyxDQUFDLFVBQUMsUUFBZ0IsSUFBSyxPQUFBLEtBQUssQ0FBQyxRQUFRLEVBQUUsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDLEVBQWxDLENBQWtDLENBQUMsQ0FBQyxFQUFBOztvQkFBMUYsU0FBMEYsQ0FBQztvQkFFM0YsS0FBSyxDQUFDLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQzs7OztTQUMvQjtDQUNGLENBQUMifQ==

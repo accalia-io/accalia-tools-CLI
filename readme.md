@@ -1,25 +1,63 @@
-# accalia-tools CLI
+# Accalia-Tools CLI
+Create your Full-Stack project
 
-A CLI for accalia-tools.
+# Installation
 
-## Customizing your CLI
+- Using npm 
+> - `npm install -g @accalia.io/accalia-tools` 
 
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
+- Using yarn 
+> - `yarn global add @accalia.io/accalia-tools` 
 
-## Publishing to NPM
+## Project Usage
 
-To package your CLI up for NPM, do this:
+- Creates a `ProjectName` directory and installs **api**, **web** and **app**:
+```sh
+accalia-tools init ProjectName
+```
 
-```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
+- Creates a `ProjectName` directory but only installs **api** and **app**:
+```sh
+accalia-tools init ProjectName --only=api,app,web
+```
+
+- Install only **web** on current directory:
+```sh
+accalia-tools init . --only=web
+```
+
+## Backend Options
+- Create a emity Model:
+```sh
+accalia-tools generate:model ModelName
+```
+
+- Create a emity Controller:
+```sh
+accalia-tools generate:controller ControllerName
+```
+
+- Create a CRUD controller using Sequelize:
+```sh
+accalia-tools generate:crud ModelName
+```
+
+- Create a CRUD controller using Sequelize and create Model:
+```sh
+accalia-tools generate:crud ModelName --model
+```
+
+## Frontend Options
+- Create a Component:
+```sh
+accalia-tools generate:component ComponentName
+```
+
+- Create a Page:
+```sh
+accalia-tools generate:controller PageName
 ```
 
 # License
 
 MIT - see LICENSE
-
