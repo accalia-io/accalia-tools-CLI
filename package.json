@@ -1,14 +1,15 @@
 {
   "name": "@accalia.io/accalia-tools",
   "author": {
-    "name": "ruanderson Vieira",
+    "name": "Ruanderson Vieira",
     "email": "ruanderson@accalia.io",
-    "url": "https://ruandersonvieira.com/"
+    "url": "https://www.accalia.io/"
   },
-  "organization":"accalia.io",
-  "version": "0.0.3",
+  "organization": "accalia.io",
+  "version": "0.0.4",
   "description": "accalia-tools CLI",
   "private": false,
+  "repository": "https://github.com/accalia-io/accalia-tools-CLI.git",
   "bin": {
     "accalia-tools": "bin/accalia-tools"
   },
@@ -29,7 +30,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "latest"
+    "gluegun": "latest",
+    "pluralize": "^8.0.0"
   },
   "devDependencies": {
     "standard": "^12.0.1",

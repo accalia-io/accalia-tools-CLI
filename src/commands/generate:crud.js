@@ -1,22 +1,22 @@
+const pluralize = require('pluralize')
+
 module.exports = {
   name: 'generate:crud',
   description: 'Create new crud inside src/app/controlers',
   run: async toolbox => {
     const {
-      parameters,
+      parameters: { first, options },
       createModel,
       createController,
     } = toolbox
 
-    const name = parameters.first
-
-    const type = parameters.options.type || 'sequelize';
-
-    const model = parameters.options.model 
+    const type = options.type || 'sequelize';
+    const name = pluralize.isSingular(first) ? name : pluralize.singular(name)
+    const { model } = options 
 
     if (model) {
       await createModel('src/app/models', name)
-    } 
+    }
   
     await createController('src/app/controllers', name, type)
   },

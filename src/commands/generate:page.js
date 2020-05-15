@@ -3,12 +3,10 @@ module.exports = {
   description: 'Create new page inside src/pages',
   run: async toolbox => {
     const {
-      parameters,
+      parameters: { first },
       createComponent,
     } = toolbox
 
-    const name = parameters.first
-
-    await createComponent('src/pages', name)
+    await createComponent('src/pages', first)
   },
 };

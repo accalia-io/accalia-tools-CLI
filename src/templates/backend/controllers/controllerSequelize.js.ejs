@@ -1,57 +1,107 @@
+export default new <%= props.Name %>Controller();
+
+import * as Yup from 'yup';
 import { Op } from 'sequelize';
+import _ from 'underscore';
 
 import <%= props.Name %> from '../models/<%= props.Name %>';
 
 class <%= props.Name %>Controller {
   async index(req, res) {
-    const { page = 1, q } = req.query;
+    const query = {};
+    const { page = 1, name } = req.query;
 
-    const query = q ? { name: { [Op.ilike]: q } } : null;
+    if (name) _.extend(query, { name: { [Op.startsWith]: name } });
 
-    const <%= props.name %> = await <%= props.Name %>.findAll({
+    const <%= props.names %> = await <%= props.Name %>.findAll({
       where: query,
       offset: (page - 1) * 10,
       limit: 10,
+      attributes: ['id', 'name'],
     });
 
-    const counter = await <%= props.Name %>.findAndCountAll();
+    const counter = await <%= props.Name %>.findAndCountAll({ where: query });
     const { count } = counter;
 
-    return res.json({ <%= props.name %>, count });
+    return res.json({ <%= props.names %>, count });
   }
 
   async store(req, res) {
-    const isSaved = await <%= props.Name %>.findOne({ where: { code: req.body.code } });
+    const { name } = req.body;
+
+    const schema = Yup.object().shape({
+      name: Yup.string().required('O nome é obrigatório!'),
+      icon: Yup.string().required('O ícone é obrigatório!'),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Erro na validação!' });
+    }
+
+    const isSaved = await <%= props.Name %>.findOne({ where: { name } });
 
     if (isSaved) {
-      return res.status(409).json({ error: 'Duplicate Code' });
+      return res.status(409).json({ error: 'Categoria já cadastrada!' });
     }
 
     const <%= props.name %> = await <%= props.Name %>.create(req.body);
 
-    return res.json(<%= props.name %>);
+    return <%= props.name %>
+      ? res.json({ id: <%= props.name %>.id, name: <%= props.name %>.name })
+      : res.status(400).json({
+          error: 'Não foi possível cadastrar a categoria!',
+        });
   }
 
   async show(req, res) {
-    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
+    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id, {
+      attributes: ['id', 'name'],
+    });
 
-    return res.json(<%= props.name %>);
+    return <%= props.name %>
+      ? res.status(201).json(<%= props.name %>)
+      : res.status(400).json({ error: 'Categoria não encontrada!' });
   }
 
   async update(req, res) {
+    const { name } = req.body;
+
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      icon: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Erro na validação!' });
+    }
+
+    if (name) {
+      const isCreated = await <%= props.Name %>.findOne({ where: { name } });
+
+      if (isCreated) {
+        return res.status(409).json({ error: 'Categoria já cadastrada!' });
+      }
+    }
+
     const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
 
-    const new<%= props.Name %> = await <%= props.name %>.update(req.body);
+    const updated<%= props.Name %> = await <%= props.name %>.update(req.body);
 
-    return res.json(new<%= props.Name %>);
+    return updated<%= props.Name %>
+      ? res.json(updated<%= props.Name %>)
+      : res.status(400).json({
+          error: 'Não foi possível atualizar a categoria!',
+        });
   }
 
-  async delete(req, res) {
-    const <%= props.name %> = await <%= props.Name %>.findByPk(req.params.id);
+  async destroy(req, res) {
+    const { id } = req.params;
 
-    const new<%= props.Name %> = await <%= props.name %>.update(req.body);
+    const isDeleted = <%= props.Name %>.destroy({ where: { id } });
 
-    return res.json(new<%= props.Name %>);
+    return isDeleted
+      ? res.json({ error: 'Deletado com sucesso!' })
+      : res.status(401).json({ error: 'Ocorreu um erro durante a remoção!' });
   }
 }
 
