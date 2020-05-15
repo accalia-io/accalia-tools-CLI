@@ -11,7 +11,7 @@ module.exports = {
     } = toolbox
 
     const type = options.type || 'sequelize';
-    const name = pluralize.isSingular(first) ? name : pluralize.singular(name)
+    const name = pluralize.isSingular(first) ? first : pluralize.singular(first)
     const { model } = options 
 
     if (model) {

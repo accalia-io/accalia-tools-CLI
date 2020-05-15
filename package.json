@@ -6,7 +6,7 @@
     "url": "https://www.accalia.io/"
   },
   "organization": "accalia.io",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "accalia-tools CLI",
   "private": false,
   "repository": "https://github.com/accalia-io/accalia-tools-CLI.git",
