@@ -6,11 +6,11 @@ Create your Full-Stack project
 
 - Using npm:
 
-> - `npm install -g @accalia.io/accalia-tools` 
+> `npm install -g @accalia.io/accalia-tools` 
 
 - Using yarn: 
 
-> - `yarn global add @accalia.io/accalia-tools` 
+> `yarn global add @accalia.io/accalia-tools` 
 
 ## Project Usage
 
