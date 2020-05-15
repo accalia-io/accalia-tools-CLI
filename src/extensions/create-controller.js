@@ -1,3 +1,5 @@
+const pluralize = require('pluralize')
+
 module.exports = (toolbox) => {
   const { template, print: { success, error } } = toolbox;
 
@@ -13,6 +15,7 @@ module.exports = (toolbox) => {
 
   async function createController(folder, name, type) {
     const Name = name.charAt(0).toUpperCase() + name.slice(1);
+    const names = pluralize.plural(name);
 
     if (!name) {
       error('Name must be specified');
@@ -24,7 +27,7 @@ module.exports = (toolbox) => {
     await template.generate({
       template: controllerTemplate,
       target: `${folder}/${Name}Controller.js`,
-      props: { Name, name },
+      props: { Name, name, names },
     })
 
     success(`Generated ${folder}/${Name}.`)

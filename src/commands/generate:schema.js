@@ -1,16 +1,16 @@
 const pluralize = require('pluralize')
 
 module.exports = {
-  name: 'generate:model',
-  description: 'Create new model inside src/app/model',
+  name: 'generate:schema',
+  description: 'Create new schema inside src/app/schemas',
   run: async toolbox => {
     const {
       parameters: { first },
-      createModel,
+      createSchema,
     } = toolbox
 
     const name = pluralize.isSingular(first) ? first : pluralize.singular(first)
 
-    await createModel('src/app/models', name)
+    await createSchema('src/app/schemas', name)
   },
 };

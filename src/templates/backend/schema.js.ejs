@@ -1,0 +1,18 @@
+import mongoose from 'mongoose';
+import soft_delete from 'mongoose-softdelete';
+
+const <%= props.Name %>Schema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+<%= props.Name %>Schema.plugin(soft_delete);
+
+export default mongoose.model('<%= props.Name %>', <%= props.Name %>Schema);
