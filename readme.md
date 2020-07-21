@@ -75,7 +75,7 @@ accalia-tools generate:component ComponentName
 - Create a Page:
 
 ```sh
-accalia-tools generate:controller PageName
+accalia-tools generate:page PageName
 ```
 
 # License
